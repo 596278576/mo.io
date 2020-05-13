@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>想和你一起去看雪</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        body {
+            height: 100vh;
+            background: radial-gradient(ellipse at bottom,
+                    #1b2735 0, #090a0f 100%);
+            filter: drop-shadow(0 0 10px white);
+            position: relative;
+        }
+
+        .snow {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #fff;
+            position: absolute;
+        }
+        .mywords
+        {
+            position: fixed;
+            left: 50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+            color: #fff;
+            font-size: 1.5em;
+            line-height: 2em;
+            font-weight: 500;
+            display: flex;
+            flex-wrap: wrap;
+           
+        }
+        .mywords  span{
+            animation: jumpin 0.5s ease-out both;
+            
+        }
+        @keyframes jumpin {
+            from{
+                transform: translateY(-20%);
+                opacity: 0;
+            }
+            to{
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+       
+    </style>
+</head>
+
+<body>
+    <p class="mywords">
+       莫梅梅，余生我只想和你看雪看星星看月亮，从诗词歌赋谈到人生理想。
+    </p>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var words=$(".mywords").text().split("");
+            $(".mywords").empty();
+            words.forEach((w,i)=>{
+                $(`<span>${w}</span>`).css({
+                    "animation-delay": 0.1*i+'s'
+                }).appendTo($(".mywords"));
+            });
+            for(var i=0;i<200;i++)
+            {
+                var x=Math.random()*100;
+                var y=Math.random()*100;
+                var scale=Math.random();
+                var opacity=Math.random();
+                var t1=Math.random()*20+10;
+                var t2=Math.random()*30;
+
+                var o=Math.random()*20-10;
+                var x1=x+o;
+                var x2=x+o/2;
+
+                $(`<style> @keyframes fall${i} {
+            ${y}%{
+                transform: translate(${x1}vw, ${y}vh) scale(${scale});
+            }
+            to{
+                transform: translate(${x2}vw,100vh) scale(${scale});
+            }
+        }
+    </style>`).appendTo($("head"));
+                $('<div class="snow"></div>')
+                    .css({
+                        "transform": `translate(${x}vw, -10px) scale(${scale})`,
+                        "opacity": opacity,
+                        "animation": `fall${i} ${t1}s -${t2}s linear infinite`
+                    })
+                    .appendTo($("body")).end()
+                    
+            }
+        })
+    </script>
+</body>
+
+</html>
